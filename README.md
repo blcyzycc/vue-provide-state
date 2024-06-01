@@ -13,8 +13,8 @@ const homeState = reactive({
   }
 })
 
-susProvide({
-  global: true, // true 则将 homeState 注入到 susProvide 对象下
+susiProvide({
+  global: true, // true 则将 homeState 注入到 susiProvide 对象下
   data: {
     homeState
   },
@@ -34,7 +34,7 @@ provide('homeState', homeState)
  * 通过Vue3.0框架的provide和inject实现状态管理
  *
  * @param options[object]
- *    global[boolean] 模块是否注入 susProvide 对象下，默认 false 不注入
+ *    global[boolean] 模块是否注入 susiProvide 对象下，默认 false 不注入
  *    local[array]    需要缓存在 localStorage 中的状态
  *    session[array]  需要缓存在 sessionStorage 中的状态
  *    data[object]    状态

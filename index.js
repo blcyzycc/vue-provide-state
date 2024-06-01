@@ -1,6 +1,16 @@
 import { watch } from 'vue'
 
-const susProvide = (options) => {
+/**
+ * 通过 vue3 的 provide + inject 实现状态管理。
+ * 解决状态的初始化、持久化、外部js引用问题。
+ * 使用时将 setup 声明的需要 provide 的属性按格式传入即可。
+ * @param options[object]
+ *    global[boolean] 模块是否注入 susiProvide 对象下，默认 false 不注入
+ *    local[array]    需要缓存在 localStorage 中的状态
+ *    session[array]  需要缓存在 sessionStorage 中的状态
+ *    data[object]    状态属性，即使用 provide 需要声明的状态
+ * */
+const susiProvide = (options) => {
   const global = options.global || false
   const data = options.data || {}
   const local = options.local || []
@@ -62,9 +72,9 @@ const susProvide = (options) => {
   })
 
   if (global) {
-    // 注入状态到 susProvide 下
+    // 注入状态到 susiProvide 下
     for (let key in data) {
-      susProvide[key] = data[key]
+      susiProvide[key] = data[key]
     }
   }
 }
@@ -112,4 +122,4 @@ const setDeepProperty = (obj, pathStr, value) => {
   }
 }
 
-export default susProvide
+export default susiProvide
