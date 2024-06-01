@@ -1,7 +1,11 @@
-# Vue 2 和 Vue 3 通过 provide 和 inject 实现状态管理功能
+# Implementing state management using Vue 3's provide and inject features.
+# 使用 Vue 3 的 provide 和 inject 实现状态管理，解决了状态的初始化、持久化、外部js引用问题。
+# 此版本需要使用 setup 语法糖。
+#
 
-/*
-// 使用案例
+# 使用案例
+
+```
 const homeState = reactive({
   show: false,
   number: 1,
@@ -28,15 +32,7 @@ susiProvide({
 })
 
 provide('homeState', homeState)
-*/
 
-/**
- * 通过Vue3.0框架的provide和inject实现状态管理
- *
- * @param options[object]
- *    global[boolean] 模块是否注入 susiProvide 对象下，默认 false 不注入
- *    local[array]    需要缓存在 localStorage 中的状态
- *    session[array]  需要缓存在 sessionStorage 中的状态
- *    data[object]    状态
- * @return 返回 provide 部分混入代码
- * */
+console.log(susiProvide.homeState);
+
+```
