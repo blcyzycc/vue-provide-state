@@ -1,7 +1,42 @@
 # Vue 2 和 Vue 3 通过 provide 和 inject 实现状态管理功能
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+/*
+// 使用案例
+const homeState = reactive({
+  show: false,
+  number: 1,
+  count: {
+    number: 10,
+  },
+  addNumber() {
+    homeState.count.number++
+  }
+})
 
-## Recommended IDE Setup
+susProvide({
+  global: true, // true 则将 homeState 注入到 susProvide 对象下
+  data: {
+    homeState
+  },
+  local: [
+    'homeState.number',
+  ],
+  session: [
+    'homeState.show',
+    'homeState.count.number',
+  ]
+})
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+provide('homeState', homeState)
+*/
+
+/**
+ * 通过Vue3.0框架的provide和inject实现状态管理
+ *
+ * @param options[object]
+ *    global[boolean] 模块是否注入 susProvide 对象下，默认 false 不注入
+ *    local[array]    需要缓存在 localStorage 中的状态
+ *    session[array]  需要缓存在 sessionStorage 中的状态
+ *    data[object]    状态
+ * @return 返回 provide 部分混入代码
+ * */
