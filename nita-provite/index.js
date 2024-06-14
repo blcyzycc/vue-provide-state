@@ -38,6 +38,12 @@ const nitaProvide = (options) => {
   init(local, localStorage)
   init(session, sessionStorage)
 
+  if (global) {
+    for (let key in data) {
+      nitaProvide[key] = this[key]
+    }
+  }
+
   local.forEach(key => {
     watch[key] = {
       deep: true,
@@ -72,7 +78,6 @@ const nitaProvide = (options) => {
     watch: watch,
     created() {
       if (global) {
-        // 注入状态到 nitaProvide 下
         for (let key in data) {
           nitaProvide[key] = this[key]
         }

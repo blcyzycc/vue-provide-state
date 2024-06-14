@@ -39,6 +39,12 @@ const susiProvide = (options) => {
   init(local, localStorage)
   init(session, sessionStorage)
 
+  if (global) {
+    for (let key in data) {
+      susiProvide[key] = data[key]
+    }
+  }
+
   local.forEach(key => {
     let va = getDeepProperty(data, key)
     if (va) {
@@ -70,13 +76,6 @@ const susiProvide = (options) => {
       })
     }
   })
-
-  if (global) {
-    // 注入状态到 susiProvide 下
-    for (let key in data) {
-      susiProvide[key] = data[key]
-    }
-  }
 }
 
 
