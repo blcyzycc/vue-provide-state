@@ -13,9 +13,13 @@
  * */
 ```
 
-# 使用案例
+## 全局状态可以在 main.js 和 App.vue 使用 provide 即可，见下面案例。
+
+## 使用案例，Vue组件内定义状态，如果是 App.vue，那么所有组件都能 inject 状态。
 
 ```
+<script setup>
+
 const homeState = reactive({
   show: false,
   number: 1,
@@ -28,7 +32,7 @@ const homeState = reactive({
 })
 
 susiProvide({
-  global: true, // true 则将 homeState 注入到 susiProvide 对象下
+  global: true, // 全局可用， true 则将 homeState 注入到 susiProvide 对象下
   data: {
     homeState
   },
@@ -44,5 +48,37 @@ susiProvide({
 provide('homeState', homeState)
 
 console.log(susiProvide.homeState);
+
+</script>
+```
+
+## 使用案例，全局状态在 main.js 中 Vue3 实例化阶段注入
+
+```
+const appState = reactive({
+  num: 1
+})
+
+susiProvide({
+  global: true, // 全局可用
+  data: {
+    appState,
+  },
+  local: [],
+  session: [],
+})
+
+let app = createApp(App)
+app.provide('appState', appState).provide('userInfo', userInfo)
+app.use(router).mount('#app')
+
+```
+
+## 其它 js 文件中使用全局状态，需要将 global 设为true
+
+```
+import susiProvide from 'susi-provide'
+
+console.log(susiProvide.appState)
 
 ```

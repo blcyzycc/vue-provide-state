@@ -78,7 +78,6 @@ const susiProvide = (options) => {
   })
 }
 
-
 /**
  * 顺着属性链路获取最后一个属性
  * */
@@ -101,23 +100,36 @@ const getDeepProperty = (obj, pathStr) => {
  * 顺着属性链路设置对应值
  * */
 const setDeepProperty = (obj, pathStr, value) => {
-  let pts = pathStr.split('.')
+  const paths = pathStr.split('.')
   let current = obj
 
-  if (pts.length === 1) {
-    if (typeof value === 'object') {
-      for (let key in value) {
-        obj[pathStr][key] = value[key]
-      }
-    } else {
-      console.warn('[Vue warn] value cannot be made reactive: ' + typeof value);
-    }
+  // 遍历路径，直到倒数第二级
+  for (let i = 0; i < paths.length - 1; i++) {
+    const pathPart = paths[i]
+    current[pathPart] = current[pathPart] || {}
+    current = current[pathPart]
   }
-  else {
-    for (let i = 0; i < pts.length - 1; i++) {
-      current = current[pts[i]] ? current[pts[i]] : {}
+
+  // 设置最后一级的值
+  if (typeof value === 'object' && !Array.isArray(value)) {
+    mergeJson(current[paths[paths.length - 1]], value)
+  } else {
+    current[paths[paths.length - 1]] = value
+  }
+}
+
+/**
+ * 以 objA 为主，从 objB 中取值
+ * */
+const mergeJson = (objA, objB) => {
+  for (let key in objA) {
+    if (objB.hasOwnProperty(key)) {
+      if (objA.hasOwnProperty(key) && typeof objA[key] === 'object' && typeof objB[key] === 'object') {
+        mergeJson(objA[key], objB[key])
+      } else {
+        objA[key] = objB[key]
+      }
     }
-    current[pts[pts.length - 1]] = value
   }
 }
 

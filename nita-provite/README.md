@@ -13,9 +13,12 @@
  * */
 ```
 
-# 使用案例
+## 全局状态可以在 main.js 和 App.vue 使用 provide 即可，见下面案例。
+
+## 使用案例，Vue组件内定义状态，如果是 App.vue，那么所有组件都能 inject 状态
 
 ```
+<script>
 import nitaProvide from 'nata-provite'
 
 const state = {
@@ -53,4 +56,36 @@ export default {
   },
   ...
 }
+</script>
+```
+
+## 使用案例，全局状态在 main.js 中 Vue 实例化阶段注入
+
+```
+const state = {
+  global: true, // true 则将 appState 注入到 nitaProvide 对象下
+  local: [],
+  session: [],
+  data: {
+    appState: {
+      ...
+    }
+  }
+}
+
+new Vue({
+  router,
+  render: h => h(App),
+  mixins: [nitaProvide(state)],
+}).$mount('#app')
+
+```
+
+## 其它 js 文件中使用全局状态，需要将 global 设为true
+
+```
+import nitaProvide from 'nita-provide'
+
+console.log(nitaProvide.appState)
+
 ```
