@@ -121,10 +121,10 @@ const setDeepProperty = (obj, pathStr, value) => {
 /**
  * 以 objA 为主，从 objB 中取值
  * */
-const mergeJson = (objA, objB) => {
+const mergeJson = (objA = {}, objB = {}) => {
   for (let key in objA) {
-    if (objB.hasOwnProperty(key)) {
-      if (objA.hasOwnProperty(key) && typeof objA[key] === 'object' && typeof objB[key] === 'object') {
+    if (objB.hasOwnProperty.call(key)) {
+      if (objA.hasOwnProperty.call(key) && typeof objA[key] === 'object' && typeof objB[key] === 'object') {
         mergeJson(objA[key], objB[key])
       } else {
         objA[key] = objB[key]
