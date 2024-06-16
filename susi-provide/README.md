@@ -1,6 +1,6 @@
 ### Implementing state management using Vue 3's provide and inject features.
 ### 使用 Vue 3 的 provide 和 inject 实现状态管理，解决了状态的初始化、持久化、外部js引用问题。
-### 此版本需要使用 setup 语法糖，如需 vue2 版本请安装 nita-provite 包。
+### 此版本需要使用 setup 语法糖，如需 vue2 版本请安装 nita-provide 包。
 
 ### 参数
 ```

@@ -1,6 +1,6 @@
 ### Implementing state management using Vue 2's provide and inject features.
 ### 使用 Vue 2 的 provide 和 inject 实现状态管理，解决了状态的初始化、持久化、外部js引用问题。
-### 此版本需要通过 mixin 混入，如需 vue3 版本请安装 susi-provite 包。
+### 此版本需要通过 mixin 混入，如需 vue3 版本请安装 susi-provide 包。
 
 ### 参数
 ```
@@ -19,7 +19,7 @@
 
 ```
 <script>
-import nitaProvide from 'nata-provite'
+import nitaProvide from 'nata-provide'
 
 const state = {
   global: true, // true 则将 homeState 注入到 nitaProvide 对象下
