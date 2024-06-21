@@ -82,3 +82,34 @@ import susiProvide from 'susi-provide'
 console.log(susiProvide.appState)
 
 ```
+
+## 注意，当缓存的是json时，如果json的属性发生变化，那么初始化时会进行合并。<br>
+如下面示例中 appState.userInfo，如果之前缓存了 name age sex 三个属性。<br>
+而后更新，新增了 tel 字段，删除了 sex 字段。<br>
+则进入初始化之后，appState.userInfo 会同时包含 name age sex tel 字段。<br>
+这样设计的原因是，一些数据如 appState.userInfo 的开始值可能为空 {}，如果以开始值的属性从缓存取值会失败。<br>
+而一般来说，多一些用不到的属性也并不会出什么问题。<br>
+
+```
+const appState = reactive({
+  userInfo: {
+    name: '张三',
+    age: 18,
+    sex: 1,
+  }
+})
+
+susiProvide({
+  global: true,
+  local: [
+    'appState.userInfo',
+  ],
+  session: []
+  data: {
+    appState
+  },
+})
+
+provide('appState', appState)
+
+```
