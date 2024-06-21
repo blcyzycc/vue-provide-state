@@ -30,7 +30,7 @@ const susiProvide = (options) => {
           }
         }
       } catch (e) {
-        console.log(e);
+        console.log(e)
         storage.removeItem(key)
       }
     })
@@ -78,6 +78,10 @@ const susiProvide = (options) => {
   })
 }
 
+const isObject = (value) => {
+  return typeof value === 'object' && value !== null && !Array.isArray(value)
+}
+
 /**
  * 顺着属性链路获取最后一个属性
  * */
@@ -110,8 +114,7 @@ const setDeepProperty = (obj, pathStr, value) => {
     current = current[pathPart]
   }
 
-  // 设置最后一级的值
-  if (typeof value === 'object' && !Array.isArray(value)) {
+  if (isObject(current[paths[paths.length - 1]]) && isObject(value)) {
     mergeJson(current[paths[paths.length - 1]], value)
   } else {
     current[paths[paths.length - 1]] = value
@@ -119,18 +122,19 @@ const setDeepProperty = (obj, pathStr, value) => {
 }
 
 /**
- * 以 objA 为主，从 objB 中取值
+ * 合并两个json
  * */
-const mergeJson = (objA = {}, objB = {}) => {
-  for (let key in objA) {
-    if (objB.hasOwnProperty.call(key)) {
-      if (objA.hasOwnProperty.call(key) && typeof objA[key] === 'object' && typeof objB[key] === 'object') {
-        mergeJson(objA[key], objB[key])
+const mergeJson = (obj1 = {}, obj2 = {}) => {
+  for (let key in obj2) {
+    if (obj2.hasOwnProperty(key)) {
+      if (isObject(obj1[key]) && isObject(obj2[key])) {
+        obj1[key] = mergeJson(obj1[key], obj2[key])
       } else {
-        objA[key] = objB[key]
+        obj1[key] = obj2[key]
       }
     }
   }
+  return obj1
 }
 
 export default susiProvide
