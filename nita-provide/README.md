@@ -59,7 +59,7 @@ export default {
 </script>
 ```
 
-## 使用案例，全局状态在 main.js 中 Vue 实例化阶段注入
+## 使用案例，定义全局状态，在 main.js 中 Vue 实例化阶段注入
 
 ```
 const state = {
