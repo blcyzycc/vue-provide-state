@@ -1,5 +1,5 @@
-### Implementing state management using Vue 2's provide and inject features.
-### 使用 Vue 2 的 provide 和 inject 实现状态管理，解决了状态的初始化、持久化、外部js引用问题。
+### Use Vue 2's Provide and Inject for state management.
+### 使用 Vue 2 的 Provide 和 Inject 进行状态管理，解决了状态的初始化、持久化、外部js引用问题。
 ### 此版本需要通过 mixin 混入，如需 vue3 版本请安装 susi-provide 包。
 [项目demo及源码](https://github.com/blcyzycc/vue-provide-state)
 
